@@ -1,27 +1,31 @@
-(() => {
-	const fs = require('fs');
-	const input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
+const fs = require("fs");
 
-	const [n, k] = input
-		.shift()
-		.split(' ')
-		.map((a) => +a);
-	const lines = input.map((a) => +a).sort();
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
 
-	let max = Math.max(...lines);
-	let min = 1;
+const input = fs.readFileSync(filePath).toString().trim().split("\n");
 
-	while (min <= max) {
-		let mid = parseInt((max + min) / 2);
-		let howManyPieces = lines
-			.map((line) => parseInt(line / mid))
-			.reduce((a, b) => a + b, 0);
-		if (howManyPieces >= k) {
-			min = mid + 1;
-		} else {
-			max = mid - 1;
-		}
-	}
+const [n, k] = input
+  .shift()
+  .split(" ")
+  .map((a) => +a);
 
-	console.log(max);
-})();
+const lines = input.map((a) => +a).sort((a, b) => a - b);
+
+let max = Math.max(...lines);
+let min = 1;
+
+while (min <= max) {
+  let mid = Math.floor((min + max) / 2);
+
+  let line = lines
+    .map((line) => Math.floor(line / mid))
+    .reduce((acc, cur) => (acc += cur), 0);
+
+  if (line >= k) {
+    min = mid + 1;
+  } else {
+    max = mid - 1;
+  }
+}
+
+console.log(max);
