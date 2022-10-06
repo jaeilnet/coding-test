@@ -7,30 +7,29 @@ let input = fs.readFileSync(filePath).toString().trim().split("\n").map(Number);
 
 const [N, k] = input;
 
-let left = 1;
-let right = k;
-let answer = 0;
+let start = 1;
+let end = k;
 
-function countOrder(mid) {
+function counter(mid) {
   let cnt = 0;
 
   for (let i = 1; i <= N; i++) {
-    // console.log(cnt);
-    cnt += Math.min(parseInt(mid / i), N);
+    cnt += Math.floor(Math.min(mid / i, N));
   }
 
   return cnt;
 }
 
-while (left <= right) {
-  let mid = parseInt((left + right) / 2);
-  let count = countOrder(mid);
+let answer = 0;
+while (start <= end) {
+  let mid = Math.floor((start + end) / 2);
+  let count = counter(mid);
 
   if (count >= k) {
     answer = mid;
-    right = mid - 1;
+    end = mid - 1;
   } else {
-    left = mid + 1;
+    start = mid + 1;
   }
 }
 
