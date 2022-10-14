@@ -1,11 +1,7 @@
-const fs = require("fs");
+const input = require('fs').readFileSync('/dev/stdin').toString().trim().split("\n");
 
-const filePath =
-  process.platform === "linux" ? "/dev/stdin" : "./준/정렬/10814/input.txt";
+const len = input.shift();
 
-const [N, ...arr] = fs.readFileSync(filePath).toString().trim().split("\n");
+input.sort((a, b) => a.split(" ")[0] - b.split(" ")[0]);
 
-arr
-  .map((e) => e.split(" "))
-  .sort((a, b) => a[0] - b[0])
-  .forEach((e) => console.log(e.join(" ")));
+console.log(input.join("\n"));
