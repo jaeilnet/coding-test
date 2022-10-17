@@ -3,27 +3,30 @@ const fs = require("fs");
 const filePath =
   process.platform === "linux" ? "/dev/stdin" : "./준/집합과 맵/1764/input.txt";
 
-const input = require("fs")
-  .readFileSync(filePath)
-  .toString()
-  .trim()
-  .split("\n");
+const input = fs.readFileSync(filePath).toString().trim().split("\n");
 
-const [N, M] = input.shift().split(" ");
+const [n] = input.shift().split(" ").map(Number);
 
-const Nset = new Set();
-const Mset = new Set();
+// const newArr = input.splice(0, n);
+
+const listen = new Set();
+const showen = new Set();
+
 for (let i = 0; i < input.length; i++) {
-  if (i < N) {
-    Nset.add(input[i]);
+  if (i < n) {
+    listen.add(input[i]);
   } else {
-    Mset.add(input[i]);
+    showen.add(input[i]);
   }
 }
 
 let answer = [];
-Mset.forEach((item) => {
-  if (Nset.has(item)) answer.push(item);
+
+showen.forEach((e) => {
+  if (listen.has(e)) {
+    answer.push(e);
+  }
 });
+
 answer.sort();
 console.log(answer.length + "\n" + answer.join("\n"));
