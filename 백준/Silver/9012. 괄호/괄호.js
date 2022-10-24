@@ -4,24 +4,25 @@ const filePath =
   process.platform === "linux" ? "/dev/stdin" : "./준/스택/9012/input.txt";
 
 const input = require("fs")
-  .readFileSync("/dev/stdin")
+  .readFileSync(filePath)
   .toString()
   .trim()
   .split("\n");
 
-const len = input.shift();
-const result = [];
+const n = input.shift();
 
-for (let i = 0; i < len; i++) {
+let answer = [];
+
+for (let i = 0; i < n; i++) {
   let cnt = 0;
 
-  for (let s of input[i]) {
-    cnt += s === "(" ? 1 : -1;
+  for (let j = 0; j < input[i].length; j++) {
+    cnt += input[i][j] === "(" ? 1 : -1;
 
     if (cnt < 0) break;
   }
 
-  result.push(cnt === 0 ? "YES" : "NO");
+  !cnt ? answer.push("YES") : answer.push("NO");
 }
 
-console.log(result.join("\n"));
+console.log(answer.join("\n"));
