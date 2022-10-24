@@ -21,4 +21,4 @@ for (let i = 0; i < n; i++) {
   }
 }
 
-console.log(stack.length > 0 ? stack.reduce((acc, cur) => +acc + +cur) : 0);
+console.log(stack.reduce((acc, cur) => +acc + +cur, 0));
