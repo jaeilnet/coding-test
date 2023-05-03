@@ -1,25 +1,13 @@
 function solution(s, skip, index) {
-    
-    let last = 'z'.charCodeAt()
-    
-    const skips = skip.split("").map((e) => e.charCodeAt())
-    
-    const result = s.split('').map((e) => e.charCodeAt()).map((v) => {
-
-        let idx = index
-        
-        for(let i=0; i<idx; i++){
-            if(v === last){
-                v -= 26
-            }
-            v++;
-            
-            skips.includes(v) && idx++
+     let answer = '';
+    let alphabet = [...'abcdefghijklmnopqrstuvwxyz'].filter(v => ![...skip].includes(v));
+    let sArr = [...s];
+    for(let i = 0; i < sArr.length; i++){
+        let idx = alphabet.indexOf(sArr[i]);
+        const newIdx = (id) => {
+            return id > alphabet.length - 1 ? newIdx(id - alphabet.length) : id;
         }
-        
-        return String.fromCharCode(v)
-    }).join('')
-    
-    return result
-    
+        answer += alphabet[newIdx(idx+index)];
+    }
+    return answer;
 }
