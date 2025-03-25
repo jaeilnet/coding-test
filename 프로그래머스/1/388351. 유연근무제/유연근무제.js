@@ -3,22 +3,6 @@ function solution(s, t, d) {
     
     // 1은 월요일, 2는 화요일, 3은 수요일, 4는 목요일, 5는 금요일, 6은 토요일, 7은 일요일
     
-    const createDate = (startDay, dates) => {
-        const date = []
-        let day = startDay
-        
-        for(let i = 0; i< dates.length; i++) {
-            if(day > 7) {
-                day = 1
-            }
-            date.push(day)
-            day++
-        }
-        return date
-    }
-    
-    const dates = createDate(d, t[0])
-    
     const addTenMinutes= (time) => {
         const hour = Math.floor(time / 100)
         const minute = time  % 100
@@ -34,19 +18,20 @@ function solution(s, t, d) {
     }
     
     
-    for(let i=0; i<t.length; i++) {
+    for(let i=0; i<s.length; i++) {
         let isLate = false;
         const allowedTime = addTenMinutes(s[i])
     
-        for(let j=0; j<t[i].length; j++) {
+        for(let j=0; j<7; j++) {
             // 주말 생략
-            if(dates[j] > 5) continue;
+            let currentDay = (d + j - 1) % 7 + 1;
             
-            if(t[i][j] > allowedTime) {
-                isLate = true
-                break;
-            }
-
+            if(currentDay  <= 5) {
+                if(t[i][j] > allowedTime) {
+                    isLate = true
+                    break;
+                }
+           }
         }
         
         if(!isLate) {
