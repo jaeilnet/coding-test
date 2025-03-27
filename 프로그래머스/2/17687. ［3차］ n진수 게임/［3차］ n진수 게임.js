@@ -1,17 +1,19 @@
 function solution(n, t, m, p) {
-    var answer = '';
-    let sequence = ''
+    
+    let res = ''
+    let seq = ''
+    
     let num = 0
     
-    while(sequence.length < t * m) {
-        let converted = num.toString(n).toUpperCase()
-        sequence += converted
-        num++
-    }
-
-    for(let i=p-1; i<sequence.length && answer.length < t; i+=m) {
-        answer+=sequence[i]
+    while(res.length < t) {
+        if(seq.length >= m) {
+            res += seq[p-1]
+            seq = seq.slice(m)
+        }else {
+            seq += num.toString(n).toUpperCase()
+            num++
+        }
     }
     
-    return answer;
+    return res
 }
